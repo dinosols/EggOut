@@ -158,7 +158,8 @@ function create() {
         'Dinosols Egg Breakout\nPress SPACE to Start', {
             fontFamily: 'Monaco, Courier, monospace',
             fontSize: '50px',
-            fill: '#fff'
+            fill: '#fff',
+            align: 'center'
         },
     );
 
@@ -172,10 +173,11 @@ function create() {
     gameOverText = this.add.text(
         this.physics.world.bounds.width / 2,
         this.physics.world.bounds.height / 2,
-        'Game Over', {
+        'Game Over\nPress SPACE to Restart', {
             fontFamily: 'Monaco, Courier, monospace',
             fontSize: '50px',
-            fill: '#fff'
+            fill: '#fff',
+            align: 'center'
         },
     );
 
@@ -210,9 +212,17 @@ function update() {
     if (isGameOver(this.physics.world)) {
         gameOverText.setVisible(true);
         ball.disableBody(true, true);
+
+        if (cursors.space.isDown) {
+            window.location.reload(false);
+        }
     } else if (isWon()) {
         playerWonText.setVisible(true);
         ball.disableBody(true, true);
+
+        if (cursors.space.isDown) {
+            window.location.reload(false);
+        }
     } else {
         // Put this in so that the player doesn't move if no key is being pressed
         player.body.setVelocityX(0);
