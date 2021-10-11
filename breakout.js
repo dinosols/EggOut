@@ -1,9 +1,9 @@
 // Game objects are global variables so that many functions can access them
-let player, ball, violetBricks, yellowBricks, redBricks, cursors;
+let player, ball, violetBricks, yellowBricks, redBricks, cursors, score;
 // Variable to determine if we started playing
 let gameStarted = false;
 // Add global text objects
-let openingText, gameOverText, playerWonText;
+let openingText, gameOverText, playerWonText, scoreText;
 
 // This object contains all the Phaser configurations to load our game
 const config = {
@@ -15,7 +15,7 @@ const config = {
     // Parent element to inject the Canvas/WebGL element with the game
     parent: 'game',
     width: 800,
-    heigth: 640,
+    heigth: 700,
     scale: {
         // Ensure the canvas is resized to fit the parent div's dimensions
         mode: Phaser.Scale.RESIZE,
@@ -74,14 +74,14 @@ function create() {
      */
     player = this.physics.add.sprite(
         400, // x position
-        600, // y position
+        660, // y position
         'paddle', // key of image for the sprite
     );
 
     // Let's add the ball
     ball = this.physics.add.sprite(
         400, // x position
-        565, // y position
+        625, // y position
         'ball' // key of image for the sprite
     );
 
@@ -94,7 +94,7 @@ function create() {
         immovable: true,
         setXY: {
             x: 80,
-            y: 140,
+            y: 200,
             stepX: 70
         }
     });
@@ -106,7 +106,7 @@ function create() {
         immovable: true,
         setXY: {
             x: 80,
-            y: 90,
+            y: 150,
             stepX: 70
         }
     });
@@ -118,7 +118,7 @@ function create() {
         immovable: true,
         setXY: {
             x: 80,
-            y: 40,
+            y: 90,
             stepX: 70
         }
     });
@@ -142,9 +142,9 @@ function create() {
     this.physics.world.checkCollision.down = false;
 
     // Add collision for the bricks
-    this.physics.add.collider(ball, violetBricks, hitBrick, null, this);
-    this.physics.add.collider(ball, yellowBricks, hitBrick, null, this);
-    this.physics.add.collider(ball, redBricks, hitBrick, null, this);
+    this.physics.add.collider(ball, violetBricks, hitVioletBrick, null, this);
+    this.physics.add.collider(ball, yellowBricks, hitYellowBrick, null, this);
+    this.physics.add.collider(ball, redBricks, hitRedBrick, null, this);
 
     // Make the player immovable
     player.setImmovable(true);
@@ -193,11 +193,26 @@ function create() {
         'You won!', {
             fontFamily: 'Monaco, Courier, monospace',
             fontSize: '50px',
-            fill: '#fff'
+            fill: '#fff',
+            align: 'center'
         },
     );
 
     playerWonText.setOrigin(0.5);
+
+    score = 0;
+    scoreText = this.add.text(
+        this.physics.world.bounds.width / 2,
+        35,
+        '◎' + score, {
+            fontFamily: 'Monaco, Courier, monospace',
+            fontSize: '50px',
+            fill: '#fff',
+            align: 'center'
+        }
+    );
+
+    scoreText.setOrigin(0.5);
 
     // Make it invisible until the player wins
     playerWonText.setVisible(false);
@@ -277,7 +292,7 @@ function isWon() {
  * @param ball - the ball sprite
  * @param brick - the brick sprite
  */
-function hitBrick(ball, brick) {
+function hitVioletBrick(ball, brick) {
     brick.disableBody(true, true);
 
     if (ball.body.velocity.x == 0) {
@@ -288,6 +303,41 @@ function hitBrick(ball, brick) {
             ball.body.setVelocityX(-150);
         }
     }
+
+    score += 1;
+    scoreText.setText('◎' + score)
+}
+
+function hitYellowBrick(ball, brick) {
+    brick.disableBody(true, true);
+
+    if (ball.body.velocity.x == 0) {
+        randNum = Math.random();
+        if (randNum >= 0.5) {
+            ball.body.setVelocityX(150);
+        } else {
+            ball.body.setVelocityX(-150);
+        }
+    }
+
+    score += 10;
+    scoreText.setText('◎' + score)
+}
+
+function hitRedBrick(ball, brick) {
+    brick.disableBody(true, true);
+
+    if (ball.body.velocity.x == 0) {
+        randNum = Math.random();
+        if (randNum >= 0.5) {
+            ball.body.setVelocityX(150);
+        } else {
+            ball.body.setVelocityX(-150);
+        }
+    }
+
+    score += 100;
+    scoreText.setText('◎' + score)
 }
 
 /**
