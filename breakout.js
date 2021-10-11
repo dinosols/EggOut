@@ -290,9 +290,9 @@ function hitBrick(ball, brick) {
  */
 function hitPlayer(ball, player) {
     // Increase the velocity of the ball after it bounces
-    ball.setVelocityY(ball.body.velocity.y - 10);
+    ball.setVelocityY(ball.body.velocity.y - 20);
 
-    let newXVelocity = Math.abs(ball.body.velocity.x) + 10;
+    let newXVelocity = Math.abs(ball.body.velocity.x) + 20;
     // If the ball is to the left of the player, ensure the x velocity is negative
     if (ball.x < player.x) {
         ball.setVelocityX(-newXVelocity);
@@ -300,5 +300,5 @@ function hitPlayer(ball, player) {
         ball.setVelocityX(newXVelocity);
     }
 
-    ball.setAngularVelocity(ball.body.angularVelocity + 5);
+    ball.setAngularVelocity(ball.body.angularVelocity + 20);
 }
