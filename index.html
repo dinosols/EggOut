@@ -2,32 +2,62 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-  <title>Breakout</title>
-  <style>
-    html,
-    body {
-      margin: 0 auto;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    #game {
-      margin: 10px auto;
-      padding: 0;
-      width: 800px;
-      height: 640px;
-    }
-  </style>
+    <title>Egg Breakout</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="shortcut icon" type="image/png" href="./assets/logo.png" />
+    <title>Breakout</title>
+    <style>
+        html,
+        body {
+            margin: 0 auto;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background: #1f2424;
+        }
+        
+        #game {
+            margin: 10px auto;
+            padding: 0;
+            width: 800px;
+            height: 640px;
+        }
+        
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+        
+        li {
+            float: left;
+        }
+        
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        
+        li a:hover {
+            background-color: #111;
+        }
+    </style>
 </head>
 
 <body>
-  <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="game"></div>
-  <script src="//cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
-  <script src="breakout.js"></script>
+    <ul>
+        <li><a class="navbar" href="https://www.dinosols.app">Home</a></li>
+    </ul>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="game"></div>
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
+    <script src="breakout.js"></script>
 </body>
 
 </html>
